@@ -3,3 +3,4 @@ numpy
 matplotlib
 seabron
 sqlite3
+sklearn
