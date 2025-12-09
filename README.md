@@ -174,7 +174,7 @@ This supports interpretability and contributes directly to the final recommendat
 
 ---
 
-## 5. Modeling & Experiments
+## 5. Experimental Design
 
 In this section, we use the cleaned and scaled `scaled` dataframe to train and evaluate machine learning models that classify high-risk departments.
 
