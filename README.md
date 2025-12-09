@@ -376,7 +376,7 @@ Analysing **logistic regression**, it was good too:
 
 <img width="1920" height="1440" alt="random_forest_roc_curve" src="https://github.com/user-attachments/assets/6c432005-ee32-4551-aedd-8f63a61e1123" />
 
-<img width="1920" height="1440" alt="logistic_regression_roc_curve" src="https://github.com/user-attachments/assets/a60e8df2-a160-4594-85ec-298ba98004a0" />
+<img width="1920" height="1440" alt="histgradientboosting_roc_curve" src="https://github.com/user-attachments/assets/31464a58-5cae-44f1-af25-ab75d4f19579" />
 
 
 ---
