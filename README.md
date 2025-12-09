@@ -168,19 +168,46 @@ Using the `high_risk_departments` table in the database, we create a binary labe
 - 0 = not high-risk
 
 ---
+### 5.2 Feature Selection and Train/Validation/Test Split
 
-### 5.2 Feature Selection and Train/Test Split
+In this step, we prepare the feature matrix **X** and the target vector **y** from the cleaned and scaled dataset (`model_df`).
 
-From the scaled dataset we drop:
-- `dept_id`, `dept_name` (identifiers)
-- `overall_risk_score`, `compliance_score_final` 
-- the target `is_high_risk` from the feature matrix
+We remove the following columns from the feature matrix:
+- `dept_id` and `dept_name`: identifier fields that carry no predictive value,
+- `overall_risk_score` and `compliance_score_final`: high-level outcome variables
+  that would cause data leakage if included,
+- the target column `is_high_risk` (kept only in `y`).
 
-Then we split the data into train and test sets.
+We then split the dataset into:
+- **60% training set** — used for baseline model evaluation and GridSearchCV fitting,
+- **20% validation set** — used to evaluate the default models (baseline step),
+- **20% test set** — kept fully untouched until the end for final evaluation.
+
+The split is done in two stages:
+1. First: **train+validation vs test** split (80% / 20%)  
+2. Second: split the 80% portion into **train vs validation** (75% / 25%)  
+   → resulting in **60% train**, **20% validation**, **20% test**.
+---
+
+### 5.3 Baseline Models with Default Hyperparameters
+
+Before tuning any hyperparameters, we first train each model with its default
+settings. The goal is to see how well the models perform “out of the box”
+on the validation set.
+
+We use three models:
+- Logistic Regression
+- Random Forest
+- Histogram Gradient Boosting
+
+Each model is fitted on the training set (`X_train`, `y_train`) and evaluated
+on the validation set (`X_val`, `y_val`) using the F1-score.
+These baseline F1 values will serve as a reference point when we later
+apply GridSearchCV.
 
 ---
 
-### 5.3 Models and Hyperparameters
+### 5.4 Models and Hyperparameters
 
 We train three different models on the scaled features:
 
@@ -188,18 +215,21 @@ We train three different models on the scaled features:
 2. Random Forest  
 3. HistGradientBoosting  
 
-For each model we define a small hyperparameter grid and use GridSearchCV with 3-fold cross-validation
-to find reasonable settings using F1-score as the main metric.
+For each model we define a small hyperparameter grid.
+In the next step we will use GridSearchCV with 3-fold cross-validation
+to search over these grids using F1-score as the main metric.
 
 ---
 
-### 5.4 Running GridSearchCV
+### 5.5 Running GridSearchCV
 
-We run GridSearchCV for each model on the training set and keep the best estimator according to F1-score.
+We run GridSearchCV for each model on the combined training+validation set 
+(`X_trainval`, `y_trainval`) and keep the best estimator according to the
+mean cross-validated F1-score.
 
 ---
 
-### 5.5 Model Evaluation
+### 5.6 Model Evaluation
 
 We evaluate each tuned model on the held-out test set using:
 
@@ -212,13 +242,13 @@ We evaluate each tuned model on the held-out test set using:
 
 ---
 
-### 5.6 Test Results and Model Comparison
+### 5.7 Test Results and Model Comparison
 
 We now evaluate all three models on the test set and summarize the metrics in a comparison table.
 
 ---
 
-### 5.7 Feature Importance (Random Forest)
+### 5.8 Feature Importance (Random Forest)
 
 Finally, we inspect which features are most important in the Random Forest model.
 Since the input data is already scaled and fully numeric, we can directly use
