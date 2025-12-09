@@ -153,16 +153,15 @@ This supports interpretability and contributes directly to the final recommendat
 
 ---
 
-## 5. Modeling & Experiments (Person 2)
+## 5. Modeling & Experiments
 
-In this section, we use the cleaned and scaled `scaled` dataframe from Person 1
-to train and evaluate machine learning models that classify high-risk departments.
+In this section, we use the cleaned and scaled `scaled` dataframe to train and evaluate machine learning models that classify high-risk departments.
 
 ---
 
 ### 5.1 Creating the Target Variable
 
-We start from the cleaned and scaled dataframe `scaled` produced in Person 1’s section.
+We start from the cleaned and scaled dataframe `scaled`.
 Using the `high_risk_departments` table in the database, we create a binary label:
 
 - 1 = high-risk department  
@@ -174,7 +173,7 @@ Using the `high_risk_departments` table in the database, we create a binary labe
 
 From the scaled dataset we drop:
 - `dept_id`, `dept_name` (identifiers)
-- `overall_risk_score`, `compliance_score_final` (final outcomes that may leak information)
+- `overall_risk_score`, `compliance_score_final` 
 - the target `is_high_risk` from the feature matrix
 
 Then we split the data into train and test sets.
