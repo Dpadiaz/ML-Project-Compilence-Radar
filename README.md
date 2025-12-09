@@ -109,6 +109,23 @@ This prepares the dataset for models that are sensitive to feature magnitude, su
 
 ---
 
+### 2.7 Implementation Environment
+
+All experiments in this project were carried out in Python.
+The main libraries used are:
+
+- **pandas** and **numpy** for data processing and manipulation  
+- **sqlite3** for loading the database  
+- **scikit-learn** for model training, preprocessing, and evaluation  
+- **matplotlib** and **seaborn** for visualization  
+
+To ensure reproducibility, all package versions used in the project are listed
+in the `requirements.txt` file included in the repository.  
+Installing these packages (e.g., via `pip install -r requirements.txt`)
+will recreate the same environment used for our experiments.
+
+---
+
 ## 3. Exploratory Data Analysis (Current Progress)
 
 Initial EDA has been performed, including:
